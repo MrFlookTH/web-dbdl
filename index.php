@@ -69,9 +69,9 @@
             <form action="search.php" method="post" class="form-inline">
               <div class="form-group">
                 <label class="sr-only" for="search">Search:</label>
-                <input class="form-control search-box" id="search" type="text" name="keyword" maxlength="50" placeholder="Search for..." autocomplete="off" />
+                <input class="form-control search-box" id="search" type="text" name="keyword" maxlength="50" placeholder="Search for..." autocomplete="off" required />
               </div>
-              &nbsp;<button class="btn btn-default" name="submit-search"><i class="fa fa-search"></i> Search</button>
+              &nbsp;<button type="submit" class="btn btn-default" name="submit-search"><i class="fa fa-search"></i> Search</button>
             </form>
           </div>
         </div>
