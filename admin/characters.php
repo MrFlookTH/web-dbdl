@@ -63,10 +63,10 @@
         // Check if $uploadOk is set to 0 by an error
         if ($uploadOk != 0) {
             require("php/connect.php");           
-            if(!move_uploaded_file($_FILES["imagePortrait"]["tmp_name"], $target_file_p)){
+            if(!move_uploaded_file($_FILES["imagePortrait"]["tmp_name"], "../".$target_file_p)){
                 $uploadOk = 0;
             }
-            if(!move_uploaded_file($_FILES["imageFull"]["tmp_name"], $target_file_f)){
+            if(!move_uploaded_file($_FILES["imageFull"]["tmp_name"], "../".$target_file_f)){
                 $uploadOk = 0;
             }
             
@@ -95,8 +95,8 @@
             $result = mysqli_query($conn, $sql);
             if(mysqli_num_rows($result) > 0){
                 $characterData = mysqli_fetch_assoc($result);
-                if(file_exists($characterData["CharacterPortraitImage"])) unlink($characterData["CharacterPortraitImage"]);
-                if(file_exists($characterData["CharacterFullImage"])) unlink($characterData["CharacterFullImage"]);
+                if(file_exists($characterData["CharacterPortraitImage"])) unlink("../".$characterData["CharacterPortraitImage"]);
+                if(file_exists($characterData["CharacterFullImage"])) unlink("../".$characterData["CharacterFullImage"]);
             }
             $_SESSION["alert_success"] = "Character ID #".$del_id." has been deleted.";
         }else{
@@ -302,12 +302,12 @@
                                         <tbody>
                                             <?php
                                                 require("php/connect.php");
-                                                $sql = "SELECT CharacterId,CharacterPortraitImage,CharacterName,CharacterRole FROM characters";
+                                                $sql = "SELECT CharacterId,CharacterPortraitImage,CharacterName,CharacterRole FROM characters ORDER BY CharacterId DESC";
                                                 if(isset($_POST["submit-search"])){
                                                     $role = htmlentities($_POST["role"]);
                                                     $keyword = trim(htmlentities($_POST["keyword"]));
                                                     $sql = "SELECT CharacterId,CharacterPortraitImage,CharacterName,CharacterRole FROM characters 
-                                                            WHERE CharacterName LIKE '%$keyword%' ";
+                                                            WHERE CharacterName LIKE '%$keyword%' ORDER BY CharacterId DESC";
                                                     if($role != "All") {$sql .= "AND CharacterRole = '$role'";}
                                                 }
                                                 $result = mysqli_query($conn, $sql);
@@ -326,7 +326,7 @@
                                                         if(mysqli_num_rows($result_perk) > 0){
                                                             while($perkData = mysqli_fetch_assoc($result_perk)){
                                                     ?>
-                                                    <a href="perk-detail.php?id=<?=$perkData["PerkId"]?>" target="_blank"><img src="<?=$perkData["PerkImage"]?>" width="50" title="<?=$perkData["PerkName"]?>" data-toggle="tooltip" /></a>
+                                                    <a href="#" target="_blank"><img src="../<?=$perkData["PerkImage"]?>" width="50" title="<?=$perkData["PerkName"]?>" data-toggle="tooltip" /></a>
                                                     <?php }}?>
                                                 </td>
                                                 <td>

@@ -73,8 +73,8 @@
         if ($uploadOk != 0) {
             require("php/connect.php");
             if($hasImageUpload){
-                if(file_exists($itemData["ItemImage"])) unlink($itemData["ItemImage"]);
-                if(move_uploaded_file($_FILES["itemImage"]["tmp_name"], $target_file_p)){
+                if(file_exists($itemData["ItemImage"])) unlink("../".$itemData["ItemImage"]);
+                if(move_uploaded_file($_FILES["itemImage"]["tmp_name"], "../".$target_file_p)){
                     $sql = "UPDATE items SET ItemImage = '$target_file' WHERE ItemId = '$itemId' LIMIT 1";
                     if(!mysqli_query($conn, $sql)) $uploadOk = 0;
                 }

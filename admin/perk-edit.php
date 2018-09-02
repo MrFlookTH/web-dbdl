@@ -73,8 +73,8 @@
         if ($uploadOk != 0) {
             require("php/connect.php");
             if($hasImageUpload){
-                if(file_exists($perkData["PerkImage"])) unlink($perkData["PerkImage"]);
-                if(move_uploaded_file($_FILES["PerkImage"]["tmp_name"], $target_file_p)){
+                if(file_exists("../".$perkData["PerkImage"])) unlink("../".$perkData["PerkImage"]);
+                if(move_uploaded_file($_FILES["PerkImage"]["tmp_name"], "../".$target_file_p)){
                     $sql = "UPDATE perks SET PerkImage = '$target_file' WHERE PerkId = '$perkId' LIMIT 1";
                     if(!mysqli_query($conn, $sql)) $uploadOk = 0;
                 }

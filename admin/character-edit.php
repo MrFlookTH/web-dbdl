@@ -87,16 +87,16 @@
         if ($uploadOk != 0) {
             require("php/connect.php");
             if($hasPortraitUpload){
-                if(file_exists($characterData["CharacterPortraitImage"])) unlink($characterData["CharacterPortraitImage"]);
-                if(move_uploaded_file($_FILES["imagePortrait"]["tmp_name"], $target_file_p)){
+                if(file_exists("../".$characterData["CharacterPortraitImage"])) unlink("../".$characterData["CharacterPortraitImage"]);
+                if(move_uploaded_file($_FILES["imagePortrait"]["tmp_name"], "../".$target_file_p)){
                     $sql = "UPDATE characters SET CharacterPortraitImage = '$target_file_p' WHERE CharacterId = '$characterId' LIMIT 1";
                     if(!mysqli_query($conn, $sql)) $uploadOk = 0;
                 }
             }
 
             if($hasFullUpload){
-                if(file_exists($characterData["CharacterFullImage"])) unlink($characterData["CharacterFullImage"]);
-                if(move_uploaded_file($_FILES["imageFull"]["tmp_name"], $target_file_f)){
+                if(file_exists("../".$characterData["CharacterFullImage"])) unlink("../".$characterData["CharacterFullImage"]);
+                if(move_uploaded_file($_FILES["imageFull"]["tmp_name"], "../".$target_file_f)){
                     $sql = "UPDATE characters SET CharacterFullImage = '$target_file_f' WHERE CharacterId = '$characterId' LIMIT 1";
                     if(!mysqli_query($conn, $sql)) $uploadOk = 0;
                 }

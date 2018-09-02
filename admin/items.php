@@ -54,7 +54,7 @@
         // Check if $uploadOk is set to 0 by an error
         if ($uploadOk != 0) {
             require("php/connect.php");           
-            if(!move_uploaded_file($_FILES["itemImage"]["tmp_name"], $target_file)){
+            if(!move_uploaded_file($_FILES["itemImage"]["tmp_name"], "../".$target_file)){
                 $uploadOk = 0;
             }
             
@@ -86,7 +86,7 @@
             $result = mysqli_query($conn, $sql);
             if(mysqli_num_rows($result) > 0){
                 $perkData = mysqli_fetch_assoc($result);
-                if(file_exists($perkData["ItemImage"])) unlink($perkData["ItemImage"]);
+                if(file_exists($perkData["ItemImage"])) unlink("../".$perkData["ItemImage"]);
             }
             $_SESSION["alert_success"] = "Item ID #".$del_id." has been deleted.";
         }else{
@@ -288,8 +288,9 @@
                                                 $sql = "SELECT ItemId,ItemName,ItemImage,ItemRarity,ItemDurability FROM items";
                                                 if(isset($_POST["submit-search"])){
                                                     $keyword = trim(htmlentities($_POST["keyword"]));
-                                                    $sql .= " WHERE ItemName LIKE '%$keyword%' ";
+                                                    $sql .= " WHERE ItemName LIKE '%$keyword%'";
                                                 }
+                                                $sql .= " ORDER BY ItemId DESC";
                                                 $result = mysqli_query($conn, $sql);
                                                 if(mysqli_num_rows($result) > 0){
                                                     while($row = mysqli_fetch_assoc($result)){
